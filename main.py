@@ -259,7 +259,7 @@ def main(page: ft.Page):
 
     Resize(page)
     p = Slider_quad()
-    tab = SaveSelectFile2('path')
+    tab = SaveSelectFile2('save')
     page.add(p,tab,ft.Text('meu ovo'))
 
 if __name__ == '__main__': 
