@@ -1,6 +1,4 @@
 
-
-
 import flet as ft
 
 class Resize:
@@ -255,38 +253,38 @@ class Slider_quad(ft.Container):
 
 
 class Example(ft.Row):
-        def __init__(self):
-            super().__init__()
-            self.pick_files_dialog = ft.FilePicker(on_result=self.pick_files_result)
-            self.selected_files = ft.Text()
-        
-            async def pick_files(_):
-                await self.pick_files_dialog.pick_files_async(allow_multiple=True)
-        
-            self.controls = [
-                ft.ElevatedButton(
-                    "Pick files",
-                    icon=ft.icons.UPLOAD_FILE,
-                    on_click=pick_files,
-                ),
-                self.selected_files,
-            ]
-        
-        async def pick_files_result(self, e: ft.FilePickerResultEvent):
-            self.selected_files.value = (
-                ", ".join(map(lambda f: f.name, e.files)) if e.files else "Cancelled!"
-            )
-            await self.selected_files.update_async()
-        
-        # happens when example is added to the page (when user chooses the FilePicker control from the grid)
-        def did_mount(self):
-            self.page.overlay.append(self.pick_files_dialog)
-            self.page.update()
-        
-        # happens when example is removed from the page (when user chooses different control group on the navigation rail)
-        def will_unmount(self):
-            self.page.overlay.remove(self.pick_files_dialog)
-            self.page.update()
+    def __init__(self):
+        super().__init__()
+        self.pick_files_dialog = ft.FilePicker(on_result=self.pick_files_result)
+        self.selected_files = ft.Text()
+    
+        async def pick_files(_):
+            await self.pick_files_dialog.pick_files_async(allow_multiple=True)
+    
+        self.controls = [
+            ft.ElevatedButton(
+                "Pick files",
+                icon=ft.icons.UPLOAD_FILE,
+                on_click=pick_files,
+            ),
+            self.selected_files,
+        ]
+    
+    async def pick_files_result(self, e: ft.FilePickerResultEvent):
+        self.selected_files.value = (
+            ", ".join(map(lambda f: f.name, e.files)) if e.files else "Cancelled!"
+        )
+        await self.selected_files.update_async()
+    
+    # happens when example is added to the page (when user chooses the FilePicker control from the grid)
+    def did_mount(self):
+        self.page.overlay.append(self.pick_files_dialog)
+        self.page.update()
+    
+    # happens when example is removed from the page (when user chooses different control group on the navigation rail)
+    def will_unmount(self):
+        self.page.overlay.remove(self.pick_files_dialog)
+        self.page.update()
 
 
 
@@ -300,12 +298,11 @@ def main(page: ft.Page):
     Resize(page)
     p = Slider_quad()
     tab = SaveSelectFile2('save')
+    s = Example()
         
-    page.add(p,tab,ft.Text('meu ovo'))
+    page.add(p,tab,ft.Text('meu ovo'),s )
 
 if __name__ == '__main__': 
     # saida = Saida()
     # print = saida.pprint 
     ft.app(target=main)
-
-
