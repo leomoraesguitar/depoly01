@@ -201,8 +201,8 @@ class SaveSelectFile2(ft.Row):
         async def Selecionar_pasta(_):
             await self.pick_files_dialog.get_directory_path_async(dialog_title = 'askdjahs', initial_directory = r'D:\baixados\programas_python\TabelaMandado\baixaryoutube\baixar_do_youtube\build\web')
 
-        def Save1(_):
-            self.pick_files_dialog.save_file()            
+        async def Save1(_):
+            await self.pick_files_dialog.save_file()            
 
 
 
