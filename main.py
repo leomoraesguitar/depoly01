@@ -9,7 +9,7 @@ class Resize:
         self.page.overlay.append(self.pw)   
 
     def page_resize(self, e):
-        self.pw.value = f"{self.page.window_width}*{self.page.window_height} px"
+        self.pw.value = f"{self.page.window.width}*{self.page.window.height} px"
         self.pw.update()
 
 
@@ -242,16 +242,6 @@ class Slider_quad(ft.Container):
         e.control.content.content = ft.TextField(dense = True,  text_size = 9, border=None,border_width = 0,expand=True,  on_submit= self.Voltar)
         self.Atualizar()
 
-        
-
-
-
-
-
-
-
-
-
 class Example(ft.Row):
     def __init__(self):
         super().__init__()
@@ -285,8 +275,6 @@ class Example(ft.Row):
     def will_unmount(self):
         self.page.overlay.remove(self.pick_files_dialog)
         self.page.update()
-
-
 
 def main(page: ft.Page):
     # Definindo o t�tulo da p�gina
