@@ -30,14 +30,14 @@ class SaveSelectFile2(ft.Row):
         self.tipo = tipo
         self.visible = True
 
-        def Selecionar_arquivo(_):
-            self.pick_files_dialog.pick_files(allow_multiple=True)
+        async def Selecionar_arquivo(_):
+            await self.pick_files_dialog.pick_files_async(allow_multiple=True)
 
-        def Selecionar_pasta(_):
-            self.pick_files_dialog.get_directory_path(dialog_title = 'askdjahs', initial_directory = r'D:\baixados\programas_python\TabelaMandado\baixaryoutube\baixar_do_youtube\build\web')
+        async def Selecionar_pasta(_):
+            await self.pick_files_dialog.get_directory_path_async(dialog_title = 'askdjahs', initial_directory = r'D:\baixados\programas_python\TabelaMandado\baixaryoutube\baixar_do_youtube\build\web')
 
-        def Save1(_):
-            self.pick_files_dialog.save_file()            
+        async def Save1(_):
+            await self.pick_files_dialog.save_file_async()            
 
 
 
@@ -76,7 +76,7 @@ class SaveSelectFile2(ft.Row):
 
             ]                      
 
-    def pick_files_result(self, e: ft.FilePickerResultEvent):
+    async def pick_files_result(self, e: ft.FilePickerResultEvent):
         if self.tipo == 'file':
             self.selected_files.value = (
                 ",".join(map(lambda f: f.path, e.files)) if e.files else "Cancelled!"
@@ -88,7 +88,7 @@ class SaveSelectFile2(ft.Row):
             self.selected_files.value = e.path if e.path else "Cancelled!"            
             
 
-        self.selected_files.update()
+        await self.selected_files.update_async()
         self._value = self.selected_files.value
 
 
