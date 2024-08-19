@@ -289,10 +289,12 @@ def main(page: ft.Page):
     # Resize(page)
     # p = Slider_quad()
     tab = SaveSelectFile2('file')
+    tab1 = SaveSelectFile2('path')
+    tab2 = SaveSelectFile2('save')
     # s = Example()
         
     # page.add(p,tab,ft.Text('meu ovo'),s )
-    page.add(tab)
+    page.add(tab,tab1,tab2)
 
 if __name__ == '__main__': 
     # saida = Saida()
