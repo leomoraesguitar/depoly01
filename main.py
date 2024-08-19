@@ -15,6 +15,103 @@ class Resize:
         self.pw.update()
 
 
+class SaveSelectFile2(ft.Row):
+    def __init__(self, tipo, nome = None):
+        '''
+        tipo  == path: seleciona uma pasta (retorna o caminho completo da pasta selecionada)
+        tipo  == file: seleciona um arquivo (retorna o caminho completo do arquivo selecionado)
+        tipo  == save: sala um arquivo (retorna o caminho completo do arquivo, junto com seu nome)
+        
+        '''
+        super().__init__()
+        self.nome = nome
+        self.pick_files_dialog = ft.FilePicker(on_result=self.pick_files_result)
+        self.tamanho_texto = 500
+        self.selected_files = ft.Text(width=self.tamanho_texto, selectable=True, max_lines = 1)
+        self._value = self.selected_files.value
+        self.tipo = tipo
+        self.visible = True
+
+        def Selecionar_arquivo(_):
+            self.pick_files_dialog.pick_files(allow_multiple=True)
+
+        def Selecionar_pasta(_):
+            self.pick_files_dialog.get_directory_path(dialog_title = 'askdjahs', initial_directory = r'D:\baixados\programas_python\TabelaMandado\baixaryoutube\baixar_do_youtube\build\web')
+
+        def Save1(_):
+            self.pick_files_dialog.save_file()            
+
+
+
+        if tipo == 'file':
+            if self.nome == None:
+                self.nome = 'Selecione o arquivo'            
+            self.controls = [
+                ft.ElevatedButton(
+                    self.nome,
+                    icon=ft.icons.UPLOAD_FILE,
+                    on_click=Selecionar_arquivo,
+                ),
+                self.selected_files,
+            ]
+        elif tipo == 'path':
+            if self.nome == None:
+                self.nome = 'Selecione a pasta'
+            self.controls = [
+                ft.ElevatedButton(
+                    self.nome,
+                    icon=ft.icons.FOLDER,
+                    on_click=Selecionar_pasta,
+                ),
+                self.selected_files,
+            ]   
+        elif tipo == 'save':
+            if self.nome == None:
+                self.nome = 'Digite o nome do arquivo'            
+            self.controls = [
+                ft.ElevatedButton(
+                    self.nome,
+                    icon=ft.icons.SAVE,
+                    on_click=Save1,
+                ),
+                self.selected_files,
+
+            ]                      
+
+    def pick_files_result(self, e: ft.FilePickerResultEvent):
+        if self.tipo == 'file':
+            self.selected_files.value = (
+                ",".join(map(lambda f: f.path, e.files)) if e.files else "Cancelled!"
+            )
+        elif self.tipo == 'path':
+            self.selected_files.value = e.path if e.path else "Cancelled!"
+
+        elif self.tipo == 'save':
+            self.selected_files.value = e.path if e.path else "Cancelled!"            
+            
+
+        self.selected_files.update()
+        self._value = self.selected_files.value
+
+
+    # happens when example is added to the page (when user chooses the FilePicker control from the grid)
+    def did_mount(self):
+        self.page.overlay.append(self.pick_files_dialog)
+        self.page.update()
+
+    # happens when example is removed from the page (when user chooses different control group on the navigation rail)
+    def will_unmount(self):
+        self.page.overlay.remove(self.pick_files_dialog)
+        self.page.update()
+
+    @property
+    def value(self):
+        return self._value
+    @value.setter
+    def value(self, valor):
+        self._value = valor
+        self.selected_files.value = valor
+        # self.selected_files.update()
 
 
 class Slider_quad(ft.Container):
@@ -162,7 +259,8 @@ def main(page: ft.Page):
 
     Resize(page)
     p = Slider_quad()
-    page.add(p)
+    tab = SaveSelectFile2('path')
+    page.add(p,tab)
 
 if __name__ == '__main__': 
     # saida = Saida()
