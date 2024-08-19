@@ -288,7 +288,7 @@ def main(page: ft.Page):
 
     # Resize(page)
     # p = Slider_quad()
-    tab = SaveSelectFile2('save')
+    tab = SaveSelectFile2('file')
     # s = Example()
         
     # page.add(p,tab,ft.Text('meu ovo'),s )
