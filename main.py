@@ -2,6 +2,7 @@ import flet as ft
 from typing import Union
 
 
+
 class Display(ft.Container):
     def __init__(self,
                  
